@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Serverless Watermark Function</title>
+    <style>
+        .form {
+            background-color: rgb(103, 164, 255);
+            margin-bottom: 20px;
+            padding: 8px;
+            max-width: 400px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        body {
+            margin-left: 20px;
+        }
+
+        .text {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        h1 {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+        label {
+            margin-bottom: 5px;
+            display: block;
+        }
+        input {
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>DigitalOcean Serverless Video Watermark Function</h1>
+
+    <form name="inputFiles">
+        <div class="form">
+            <div class="text">
+                <label>Select a video file to upload (must be in MP4 format)</label>
+                <input type="file" id="videoFile" name="videoFile" accept="video/mp4">
+            </div>
+        </div>
+        <div class="form">
+            <div class="text">
+                <label>Select a watermark image file to upload (must be in PNG format)</label>
+                <input type="file" id="imageFile" name="imageFile" accept="image/png">
+            </div>
+        </div>
+        <div class="submit">
+            <button type="submit">Upload your files</button>
+        </div>
+    </form>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+
+        const videoUpload = document.getElementById("videoFile");
+        const imageUpload = document.getElementById("imageFile");
+
+        videoUpload.addEventListener("change", handleFiles, false);
+        imageUpload.addEventListener("change", handleFiles, false);
+        
+        function handleFiles() {
+            const fileName = this.files[0].name;
+            console.log(fileName);
+        }
+
+        const inputFiles = document.forms["inputFiles"];
+        inputFiles.addEventListener("submit", uploadFiles, false);
+
+        function uploadFiles(event) {
+            event.preventDefault();
+            console.log(event.path[0].baseURI)
+            const formData = new FormData(event.target);
+            console.log(formData);
+        }
+
+</script>
+</html>
